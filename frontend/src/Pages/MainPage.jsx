@@ -2,7 +2,8 @@ import { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext.jsx';
 import routes from '../routes.js';
- 
+import ChatContainer from '../Components/ChatContainer.jsx';
+
 const MainPage = () => {
   const navigate = useNavigate();
   const { loggedIn } = useContext(AuthContext);
@@ -12,10 +13,10 @@ const MainPage = () => {
       navigate(routes.loginPagePath);
     }
   }, []);
-  
+
   return (
-    <h1>MainPage</h1>
+    <ChatContainer />
   );
 }
- 
- export default MainPage;
+
+export default MainPage;
