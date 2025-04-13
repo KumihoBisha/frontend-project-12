@@ -1,17 +1,16 @@
 install:
-	npm ci && make -C frontend install
+				npm ci && make -C frontend install
 
 build:
-	make install && npm run build
+				make install && npm run build
 
+# Запустить сервер без обновленной папки dist
 start:
-	npm run start
+				npm run start
 
-start-frontend:
-	cd frontend && npm start
-
-develop:
-	make start & make start-frontend
+# Обновить папку dist и запустить сервер
+build-frontend-and-start:
+				npm ci && npm run build && make start
 
 lint:
-	make -C frontend lint
+				make -C frontend lint
