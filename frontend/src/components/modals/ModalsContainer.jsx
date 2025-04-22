@@ -4,7 +4,7 @@ import { setModal } from '../../store/slices/modalSlice.js';
 import { getNewChannelSchema } from '../../utils/index.js';
 import ModalAdd from './AddModal.jsx';
 import ModalRename from './RenameModal.jsx';
-import ModalDelete from './deleteModal.jsx';
+import ModalDelete from './DeleteModal.jsx';
 import {
   getActiveModal,
   getChannels,
