@@ -1,14 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { chatApi } from './api/chatApi.js';
-import activeChannelReduser from './slices/activeChannelSlice.js';
+import authReducer from './slices/authSlice.js';
+import selectedChannelReducer from './slices/channelSlice.js';
+import modalReducer from './slices/modalSlice.js';
+import apiClient from './apiClient.js';
 
-export const store = configureStore({
-    reducer: {
-      [chatApi.reducerPath]: chatApi.reducer,
-      activeChannel: activeChannelReduser,
-    },
-    middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(chatApi.middleware),
-  })
-
-export default store;
+export default configureStore({
+  reducer: {
+    auth: authReducer,
+    selectedChannel: selectedChannelReducer,
+    modal: modalReducer,
+    [apiClient.reducerPath]: apiClient.reducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    .concat(apiClient.middleware),
+});

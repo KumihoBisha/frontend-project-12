@@ -1,16 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import 'bootstrap';
-import './index.scss';
-import { Provider } from 'react-redux';
-import store from './store/store.js';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { SocketContext, socketService } from './utils/socketService.js';
 
-import App from './App.jsx'
+const initializeApp = () => {
+  socketService.connect();
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Provider store={store}>
+  return (
+    <SocketContext.Provider value={socketService}>
       <App />
-    </Provider>
-  </StrictMode>,
-)
+    </SocketContext.Provider>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(initializeApp());
