@@ -5,7 +5,7 @@
 [![Actions Status](https://github.com/KumihoBisha/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/KumihoBisha/frontend-project-12/actions)
 
 
-[Deployed project](https://frontend-project-12-0mpk.onrender.com)
+[Deployed project](https://frontend-project-12-2dul.onrender.com)
 
 ### Description
 
