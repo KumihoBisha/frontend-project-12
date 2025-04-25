@@ -1,20 +1,20 @@
-import apiClient from '../apiClient.js';
+import apiClient from '../apiClient.js'
 
-const getSelectedChannelId = (state) => state.selectedChannel.selectedChannel.id;
+const getSelectedChannelId = state => state.selectedChannel.selectedChannel.id
 
-const getChannels = (state) => apiClient.endpoints.getChannels.select()(state).data;
+const getChannels = state => apiClient.endpoints.getChannels.select()(state).data
 
-const getEditedChannelId = (state) => state.modal.editedChannelId;
+const getEditedChannelId = state => state.modal.editedChannelId
 
-const getEditedChannelName = (state) => state.modal.editedChannelName;
+const getEditedChannelName = state => state.modal.editedChannelName
 
-const getToken = (state) => state.auth.token;
+const getToken = state => state.auth.token
 
-const getSelectedChannel = (state) => state.selectedChannel.selectedChannel;
+const getSelectedChannel = state => state.selectedChannel.selectedChannel
 
-const getUsername = (state) => state.auth.username;
+const getUsername = state => state.auth.username
 
-const getActiveModal = (state) => state.modal.activeModal;
+const getActiveModal = state => state.modal.activeModal
 
 export {
   getSelectedChannelId,
@@ -25,4 +25,4 @@ export {
   getSelectedChannel,
   getUsername,
   getActiveModal,
-};
+}

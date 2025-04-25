@@ -8,6 +8,6 @@ const CardContainer = ({ children }) => (
       </div>
     </div>
   </div>
-);
+)
 
-export default CardContainer;
+export default CardContainer

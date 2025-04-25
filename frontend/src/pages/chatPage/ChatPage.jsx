@@ -1,8 +1,8 @@
-import Layout from '../../components/Layout.jsx';
-import ChatContainer from './components/ChatContainer.jsx';
-import Channels from './components/Channels.jsx';
-import Messages from './components/Messages.jsx';
-import SendForm from './components/SendForm.jsx';
+import Layout from '../../components/Layout.jsx'
+import ChatContainer from './components/ChatContainer.jsx'
+import Channels from './components/Channels.jsx'
+import Messages from './components/Messages.jsx'
+import SendForm from './components/SendForm.jsx'
 
 const ChatPage = () => (
   <Layout>
@@ -13,6 +13,6 @@ const ChatPage = () => (
       </Messages>
     </ChatContainer>
   </Layout>
-);
+)
 
-export default ChatPage;
+export default ChatPage

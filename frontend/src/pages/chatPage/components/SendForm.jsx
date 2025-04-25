@@ -1,57 +1,59 @@
-import filter from 'leo-profanity';
-import { useSelector } from 'react-redux';
-import { useFormik } from 'formik';
-import { useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import SendButton from '../../../store/SendButton.jsx';
-import { useAddMessageMutation } from '../../../store/apiClient.js';
-import { getSelectedChannel, getUsername } from '../../../store/slices/selectors.js';
+import filter from 'leo-profanity'
+import { useSelector } from 'react-redux'
+import { useFormik } from 'formik'
+import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
+import SendButton from '../../../store/SendButton.jsx'
+import { useAddMessageMutation } from '../../../store/apiClient.js'
+import { getSelectedChannel, getUsername } from '../../../store/slices/selectors.js'
 
 const SendForm = () => {
-  const { t } = useTranslation();
-  const selectedChannel = useSelector(getSelectedChannel);
-  const username = useSelector(getUsername);
-  const [addMessage] = useAddMessageMutation();
-  const input = useRef(null);
+  const { t } = useTranslation()
+  const selectedChannel = useSelector(getSelectedChannel)
+  const username = useSelector(getUsername)
+  const [addMessage] = useAddMessageMutation()
+  const input = useRef(null)
 
   const handleSendMessage = async (values, { setSubmitting, resetForm }) => {
     try {
-      const filteredMessage = filter.clean(values.message);
+      const filteredMessage = filter.clean(values.message)
       const message = {
         body: filteredMessage,
         channelId: selectedChannel.id,
         username,
-      };
+      }
 
-      await addMessage(message);
-      resetForm();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmitting(false);
-      input.current.focus();
+      await addMessage(message)
+      resetForm()
     }
-  };
+    catch (error) {
+      console.log(error)
+    }
+    finally {
+      setSubmitting(false)
+      input.current.focus()
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
       message: '',
     },
     onSubmit: handleSendMessage,
-  });
+  })
 
   useEffect(() => {
     if (input.current) {
-      input.current.focus();
+      input.current.focus()
     }
-  }, [formik.isSubmitting, selectedChannel]);
+  }, [formik.isSubmitting, selectedChannel])
 
   const isEmpty = (message) => {
     if (message.trim() === '') {
-      return true;
+      return true
     }
-    return false;
-  };
+    return false
+  }
 
   return (
     <div className="mt-auto px-5 py-3">
@@ -74,7 +76,7 @@ const SendForm = () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SendForm;
+export default SendForm

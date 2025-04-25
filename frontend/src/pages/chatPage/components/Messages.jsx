@@ -1,32 +1,32 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { useContext, useEffect } from 'react';
-import apiClient, { useGetMessagesQuery } from '../../../store/apiClient.js';
-import { getSelectedChannel } from '../../../store/slices/selectors.js';
-import { SocketContext } from '../../../utils/socketService.js';
+import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { useContext, useEffect } from 'react'
+import apiClient, { useGetMessagesQuery } from '../../../store/apiClient.js'
+import { getSelectedChannel } from '../../../store/slices/selectors.js'
+import { SocketContext } from '../../../utils/socketService.js'
 
 const Messages = ({ children }) => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { data = [] } = useGetMessagesQuery();
-  const selectedChannel = useSelector(getSelectedChannel);
-  const selectedChannelMessages = data.filter(({ channelId }) => channelId === selectedChannel.id);
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const { data = [] } = useGetMessagesQuery()
+  const selectedChannel = useSelector(getSelectedChannel)
+  const selectedChannelMessages = data.filter(({ channelId }) => channelId === selectedChannel.id)
 
-  const socketService = useContext(SocketContext);
+  const socketService = useContext(SocketContext)
 
   useEffect(() => {
     const updateMessages = (newMessage) => {
       dispatch(apiClient.util.updateQueryData('getMessages', undefined, (draftMessages) => {
-        draftMessages.push(newMessage);
-      }));
-    };
+        draftMessages.push(newMessage)
+      }))
+    }
 
-    socketService.on('newMessage', updateMessages);
+    socketService.on('newMessage', updateMessages)
 
     return () => {
-      socketService.off('newMessage');
-    };
-  }, [socketService, dispatch]);
+      socketService.off('newMessage')
+    }
+  }, [socketService, dispatch])
 
   return (
     <div className="col p-0 h-100">
@@ -52,7 +52,7 @@ const Messages = ({ children }) => {
         {children}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Messages;
+export default Messages

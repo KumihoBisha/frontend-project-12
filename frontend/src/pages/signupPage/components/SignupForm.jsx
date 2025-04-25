@@ -1,50 +1,52 @@
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { useTranslation } from 'react-i18next';
-import cn from 'classnames';
-import Tooltip from './Tooltip.jsx';
-import { setToken, setUsername } from '../../../store/slices/authSlice.js';
-import { getNewUserSchema, routes } from '../../../utils/index.js';
-import { useSignupMutation } from '../../../store/apiClient.js';
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useFormik } from 'formik'
+import { useTranslation } from 'react-i18next'
+import cn from 'classnames'
+import Tooltip from './Tooltip.jsx'
+import { setToken, setUsername } from '../../../store/slices/authSlice.js'
+import { getNewUserSchema, routes } from '../../../utils/index.js'
+import { useSignupMutation } from '../../../store/apiClient.js'
 
 const SignupForm = () => {
-  const { t } = useTranslation();
-  const [error, setError] = useState(null);
-  const redirect = useNavigate();
-  const dispatch = useDispatch();
-  const schema = getNewUserSchema(t);
-  const input = useRef(null);
-  const [signup] = useSignupMutation();
+  const { t } = useTranslation()
+  const [error, setError] = useState(null)
+  const redirect = useNavigate()
+  const dispatch = useDispatch()
+  const schema = getNewUserSchema(t)
+  const input = useRef(null)
+  const [signup] = useSignupMutation()
 
   useEffect(() => {
     if (error) {
-      input.current.focus();
+      input.current.focus()
     }
-  }, [error]);
+  }, [error])
 
   useEffect(() => {
     if (input.current) {
-      input.current.focus();
+      input.current.focus()
     }
-  }, []);
+  }, [])
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const { token, username } = await signup(values).unwrap();
-      dispatch(setToken(token));
-      dispatch(setUsername(username));
-      redirect(routes.chat);
-    } catch (err) {
-      if (err.status === 409) {
-        setError(t('errors.signupError'));
-      } else {
-        setError(t('errors.networkError'));
-      }
-      setSubmitting(false);
+      const { token, username } = await signup(values).unwrap()
+      dispatch(setToken(token))
+      dispatch(setUsername(username))
+      redirect(routes.chat)
     }
-  };
+    catch (err) {
+      if (err.status === 409) {
+        setError(t('errors.signupError'))
+      }
+      else {
+        setError(t('errors.networkError'))
+      }
+      setSubmitting(false)
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -54,7 +56,7 @@ const SignupForm = () => {
     },
     validationSchema: schema,
     onSubmit: handleSubmit,
-  });
+  })
 
   return (
     <form className="w-50" onSubmit={formik.handleSubmit}>
@@ -127,7 +129,7 @@ const SignupForm = () => {
         {t('signupPage.signup')}
       </button>
     </form>
-  );
-};
+  )
+}
 
-export default SignupForm;
+export default SignupForm

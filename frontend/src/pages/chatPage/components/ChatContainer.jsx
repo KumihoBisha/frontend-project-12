@@ -4,6 +4,6 @@ const ChatContainer = ({ children }) => (
       {children}
     </div>
   </div>
-);
+)
 
-export default ChatContainer;
+export default ChatContainer

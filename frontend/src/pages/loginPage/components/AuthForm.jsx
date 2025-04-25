@@ -1,45 +1,46 @@
-import { useTranslation } from 'react-i18next';
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { useFormik } from 'formik';
-import { routes } from '../../../utils/index.js';
-import { setToken, setUsername } from '../../../store/slices/authSlice.js';
-import { useLoginMutation } from '../../../store/apiClient.js';
+import { useTranslation } from 'react-i18next'
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { useFormik } from 'formik'
+import { routes } from '../../../utils/index.js'
+import { setToken, setUsername } from '../../../store/slices/authSlice.js'
+import { useLoginMutation } from '../../../store/apiClient.js'
 
 const AuthForm = () => {
-  const { t } = useTranslation();
-  const [error, setError] = useState(null);
-  const redirect = useNavigate();
-  const dispatch = useDispatch();
-  const input = useRef(null);
-  const [login] = useLoginMutation();
+  const { t } = useTranslation()
+  const [error, setError] = useState(null)
+  const redirect = useNavigate()
+  const dispatch = useDispatch()
+  const input = useRef(null)
+  const [login] = useLoginMutation()
 
   useEffect(() => {
     if (error) {
-      input.current.focus();
+      input.current.focus()
     }
-  }, [error]);
+  }, [error])
 
   useEffect(() => {
     if (input.current) {
-      input.current.focus();
+      input.current.focus()
     }
-  }, []);
+  }, [])
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const { token, username } = await login(values).unwrap();
-      dispatch(setToken(token));
-      dispatch(setUsername(username));
-      redirect(routes.chat);
-    } catch (err) {
-      setError(t('errors.authError'));
-      setSubmitting(false);
-      toast(t('errors.networkError'));
+      const { token, username } = await login(values).unwrap()
+      dispatch(setToken(token))
+      dispatch(setUsername(username))
+      redirect(routes.chat)
     }
-  };
+    catch (err) {
+      setError(t('errors.authError'))
+      setSubmitting(false)
+      toast(t('errors.networkError'))
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -47,7 +48,7 @@ const AuthForm = () => {
       password: '',
     },
     onSubmit: handleSubmit,
-  });
+  })
 
   return (
     <form className="col-12 col-md-6 mt-3 mt-md-0" onSubmit={formik.handleSubmit}>
@@ -82,7 +83,7 @@ const AuthForm = () => {
         {t('loginPage.enter')}
       </button>
     </form>
-  );
-};
+  )
+}
 
-export default AuthForm;
+export default AuthForm

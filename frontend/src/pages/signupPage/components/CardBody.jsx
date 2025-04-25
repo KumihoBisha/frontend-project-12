@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next';
-import SignupImage from '../../../assets/signup.jpg';
-import SignupForm from './SignupForm';
+import { useTranslation } from 'react-i18next'
+import SignupImage from '../../../assets/signup.jpg'
+import SignupForm from './SignupForm'
 
 const CardBody = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div className="card-body d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
@@ -12,7 +12,7 @@ const CardBody = () => {
       </div>
       <SignupForm />
     </div>
-  );
-};
+  )
+}
 
-export default CardBody;
+export default CardBody

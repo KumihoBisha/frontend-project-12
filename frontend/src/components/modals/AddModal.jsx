@@ -1,45 +1,46 @@
-import { Modal, Form } from 'react-bootstrap';
-import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
-import filter from 'leo-profanity';
-import { useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import { useAddChannelMutation } from '../../store/apiClient.js';
-import { setSelectedChannel } from '../../store/slices/channelSlice.js';
+import { Modal, Form } from 'react-bootstrap'
+import { useFormik } from 'formik'
+import { useDispatch } from 'react-redux'
+import filter from 'leo-profanity'
+import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import { useAddChannelMutation } from '../../store/apiClient.js'
+import { setSelectedChannel } from '../../store/slices/channelSlice.js'
 
 const AddModal = ({ data }) => {
   const {
     schema,
     handleCloseModal,
-  } = data;
+  } = data
 
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const [addChannel] = useAddChannelMutation();
-  const input = useRef(null);
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const [addChannel] = useAddChannelMutation()
+  const input = useRef(null)
 
   useEffect(() => {
     if (input.current) {
-      input.current.focus();
+      input.current.focus()
     }
-  }, []);
+  }, [])
 
   const handleAddChannel = async (values, { resetForm }) => {
     try {
-      const filteredName = filter.clean(values.newChannelName);
-      const newChannel = { name: filteredName };
-      const response = await addChannel(newChannel);
+      const filteredName = filter.clean(values.newChannelName)
+      const newChannel = { name: filteredName }
+      const response = await addChannel(newChannel).unwrap()
 
-      dispatch(setSelectedChannel(response.data));
-      toast.success(t('modal.channelAddSuccess'));
-      handleCloseModal();
-      resetForm();
-    } catch (error) {
-      console.log(t('errors.networkError'), error);
-      toast.error(t('error.networkError'));
+      dispatch(setSelectedChannel(response.data))
+      toast.success(t('modal.channelAddSuccess'))
+      handleCloseModal()
+      resetForm()
     }
-  };
+    catch (error) {
+      console.log(t('errors.networkError'), error)
+      toast.error(t('error.networkError'))
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -47,7 +48,7 @@ const AddModal = ({ data }) => {
     },
     validationSchema: schema,
     onSubmit: handleAddChannel,
-  });
+  })
 
   return (
     <Modal show onHide={handleCloseModal} centered>
@@ -58,18 +59,21 @@ const AddModal = ({ data }) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
+            <Form.Label htmlFor="channelName">{t('modal.channelName')}</Form.Label>
             <Form.Control
+              id="channelName"
               name="newChannelName"
               type="text"
               className="mb-2"
               value={formik.values.newChannelName}
               onChange={formik.handleChange}
-              isInvalid={formik.errors.newChannelName}
+              isInvalid={formik.errors.newChannelName && formik.touched.newChannelName}
               ref={input}
               autoFocus
+              aria-label={t('modal.channelName')}
             />
             <Form.Label className="visually-hidden">{t('modal.channelName')}</Form.Label>
-            <Form.Control.Feedback className="invalid-feedback">
+            <Form.Control.Feedback className="invalid">
               {formik.errors.newChannelName}
             </Form.Control.Feedback>
           </Form.Group>
@@ -84,7 +88,7 @@ const AddModal = ({ data }) => {
             <button
               type="submit"
               className="btn btn-primary"
-              disabled={!formik.isValid}
+              disabled={!formik.isValid || formik.isSubmitting}
             >
               {t('modal.send')}
             </button>
@@ -92,7 +96,7 @@ const AddModal = ({ data }) => {
         </Form>
       </Modal.Body>
     </Modal>
-  );
-};
+  )
+}
 
-export default AddModal;
+export default AddModal

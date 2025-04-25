@@ -1,55 +1,55 @@
-import { useEffect } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
-import i18next from 'i18next';
-import filter from 'leo-profanity';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { initReactI18next } from 'react-i18next';
-import { ToastContainer } from 'react-toastify';
-import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
-import { Provider as MainProvider } from 'react-redux';
-import ru from './locales/ru';
-import ChatPage from './pages/chatPage/ChatPage.jsx';
-import LoginPage from './pages/loginPage/LoginPage.jsx';
-import SignupPage from './pages/signupPage/SignupPage.jsx';
-import ErrorPage from './pages/errorPage/ErrorPage.jsx';
-import { routes } from './utils';
-import ProtectedRoute from './components/ProtectedRoute.jsx';
-import store from './store/store.js';
-import { SocketContext, socketService } from './utils/socketService.js';
-import apiClient from './store/apiClient.js';
+import { useEffect } from 'react'
+import 'react-toastify/dist/ReactToastify.css'
+import i18next from 'i18next'
+import filter from 'leo-profanity'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { initReactI18next } from 'react-i18next'
+import { ToastContainer } from 'react-toastify'
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react'
+import { Provider as MainProvider } from 'react-redux'
+import ru from './locales/ru'
+import ChatPage from './pages/chatPage/ChatPage.jsx'
+import LoginPage from './pages/loginPage/LoginPage.jsx'
+import SignupPage from './pages/signupPage/SignupPage.jsx'
+import ErrorPage from './pages/errorPage/ErrorPage.jsx'
+import { routes } from './utils'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
+import store from './store/store.js'
+import { SocketContext, socketService } from './utils/socketService.js'
+import apiClient from './store/apiClient.js'
 
 const App = () => {
   useEffect(() => {
     const addChannel = (newChannel) => {
       store.dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => {
-        draftChannels.push(newChannel);
-      }));
-    };
+        draftChannels.push(newChannel)
+      }))
+    }
 
     const deleteChannel = ({ id }) => {
-      store.dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => (
-        draftChannels.filter((channel) => channel.id !== id)
-      )));
-    };
+      store.dispatch(apiClient.util.updateQueryData('getChannels', undefined, draftChannels => (
+        draftChannels.filter(channel => channel.id !== id)
+      )))
+    }
 
     const renameChannel = (editedChannel) => {
-      store.dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => (
+      store.dispatch(apiClient.util.updateQueryData('getChannels', undefined, draftChannels => (
         draftChannels
-          .filter((channel) => channel.id !== editedChannel.id)
+          .filter(channel => channel.id !== editedChannel.id)
           .concat(editedChannel)
-      )));
-    };
+      )))
+    }
 
-    socketService.on('newChannel', addChannel);
-    socketService.on('removeChannel', deleteChannel);
-    socketService.on('renameChannel', renameChannel);
+    socketService.on('newChannel', addChannel)
+    socketService.on('removeChannel', deleteChannel)
+    socketService.on('renameChannel', renameChannel)
 
     return () => {
-      socketService.off('newChannel', addChannel);
-      socketService.off('removeChannel', deleteChannel);
-      socketService.off('renameChannel', renameChannel);
-    };
-  }, []);
+      socketService.off('newChannel', addChannel)
+      socketService.off('removeChannel', deleteChannel)
+      socketService.off('renameChannel', renameChannel)
+    }
+  }, [])
 
   i18next
     .use(initReactI18next)
@@ -63,16 +63,16 @@ const App = () => {
       interpolation: {
         escapeValue: false,
       },
-    });
+    })
 
   const rollbarConfig = {
     accessToken: import.meta.env.POST_CLIENT_ACCESS_TOKEN,
     captureUncaught: true,
     captureUnhandledRejections: true,
     environment: 'production',
-  };
+  }
 
-  filter.add(filter.getDictionary('ru'));
+  filter.add(filter.getDictionary('ru'))
 
   return (
     <SocketContext.Provider value={socketService}>
@@ -94,7 +94,7 @@ const App = () => {
         </RollbarProvider>
       </MainProvider>
     </SocketContext.Provider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

@@ -1,11 +1,11 @@
-import { Modal, Form } from 'react-bootstrap';
-import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
-import { useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { useEditChannelMutation } from '../../store/apiClient.js';
-import { setSelectedChannel } from '../../store/slices/channelSlice.js';
+import { Modal, Form } from 'react-bootstrap'
+import { useFormik } from 'formik'
+import { toast } from 'react-toastify'
+import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useDispatch } from 'react-redux'
+import { useEditChannelMutation } from '../../store/apiClient.js'
+import { setSelectedChannel } from '../../store/slices/channelSlice.js'
 
 const RenameModal = ({ data }) => {
   const {
@@ -13,34 +13,35 @@ const RenameModal = ({ data }) => {
     editedChannelId,
     editedChannelName,
     handleCloseModal,
-  } = data;
+  } = data
 
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const [editChannel] = useEditChannelMutation();
-  const input = useRef(null);
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const [editChannel] = useEditChannelMutation()
+  const input = useRef(null)
 
   useEffect(() => {
     if (input.current) {
-      input.current.focus();
-      input.current.select();
+      input.current.focus()
+      input.current.select()
     }
-  }, []);
+  }, [])
 
   const handleRenameChannel = async (values) => {
     try {
       const response = await editChannel({
         id: editedChannelId,
         name: values.newChannelName,
-      });
-      dispatch(setSelectedChannel(response.data));
-      toast.success(t('modal.channelRenameSuccess'));
-      handleCloseModal();
-    } catch (error) {
-      console.log('err', error);
-      toast.error(t('error.networkError'));
+      })
+      dispatch(setSelectedChannel(response.data))
+      toast.success(t('modal.channelRenameSuccess'))
+      handleCloseModal()
     }
-  };
+    catch (error) {
+      console.log('err', error)
+      toast.error(t('error.networkError'))
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -49,7 +50,7 @@ const RenameModal = ({ data }) => {
     validationSchema: schema,
     onSubmit: handleRenameChannel,
     enableReinitialize: true,
-  });
+  })
 
   return (
     <Modal show onHide={handleCloseModal} centered>
@@ -89,7 +90,7 @@ const RenameModal = ({ data }) => {
         </Form>
       </Modal.Body>
     </Modal>
-  );
-};
+  )
+}
 
-export default RenameModal;
+export default RenameModal

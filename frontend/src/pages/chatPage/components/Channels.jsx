@@ -1,33 +1,33 @@
-import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
-import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
-import ModalsContainer from '../../../components/modals/ModalsContainer.jsx';
-import { setModal } from '../../../store/slices/modalSlice.js';
-import { setSelectedChannel } from '../../../store/slices/channelSlice.js';
-import { getSelectedChannel } from '../../../store/slices/selectors.js';
-import { useGetChannelsQuery } from '../../../store/apiClient.js';
+import { useTranslation } from 'react-i18next'
+import { useSelector, useDispatch } from 'react-redux'
+import { Button, ButtonGroup, Dropdown } from 'react-bootstrap'
+import ModalsContainer from '../../../components/modals/ModalsContainer.jsx'
+import { setModal } from '../../../store/slices/modalSlice.js'
+import { setSelectedChannel } from '../../../store/slices/channelSlice.js'
+import { getSelectedChannel } from '../../../store/slices/selectors.js'
+import { useGetChannelsQuery } from '../../../store/apiClient.js'
 
 const Channels = () => {
-  const { t } = useTranslation();
-  const { data, error, isLoading } = useGetChannelsQuery();
-  const selectedChannel = useSelector(getSelectedChannel);
-  const dispatch = useDispatch();
+  const { t } = useTranslation()
+  const { data, error, isLoading } = useGetChannelsQuery()
+  const selectedChannel = useSelector(getSelectedChannel)
+  const dispatch = useDispatch()
 
   const modals = {
     add: 'add',
     delete: 'delete',
     rename: 'rename',
-  };
+  }
 
-  const isClicked = (id) => (id === selectedChannel.id ? 'secondary' : 'light');
+  const isClicked = id => (id === selectedChannel.id ? 'secondary' : 'light')
 
   const handleClickChannel = (channel) => {
-    dispatch(setSelectedChannel(channel));
-  };
+    dispatch(setSelectedChannel(channel))
+  }
 
   const handleRenderModal = (activeModal, editedChannelId = '', editedChannelName = '') => {
-    dispatch(setModal({ activeModal, editedChannelId, editedChannelName }));
-  };
+    dispatch(setModal({ activeModal, editedChannelId, editedChannelName }))
+  }
 
   const channelsList = !isLoading && !error && data.map(({ id, name, removable }) => (
     <li key={id} className="nav-item w-100">
@@ -67,12 +67,12 @@ const Channels = () => {
         )}
       </Dropdown>
     </li>
-  ));
+  ))
 
   if (isLoading) {
     return (
       <div>{t('chatPage.chatLoading')}</div>
-    );
+    )
   }
 
   return !error && (
@@ -95,7 +95,7 @@ const Channels = () => {
       </ul>
       <ModalsContainer />
     </div>
-  );
-};
+  )
+}
 
-export default Channels;
+export default Channels

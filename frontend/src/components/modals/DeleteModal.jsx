@@ -1,36 +1,37 @@
-import { Modal } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import { useRemoveChannelMutation } from '../../store/apiClient.js';
-import { setSelectedChannel } from '../../store/slices/channelSlice';
-import { getSelectedChannelId } from '../../store/slices/selectors';
+import { Modal } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import { useRemoveChannelMutation } from '../../store/apiClient.js'
+import { setSelectedChannel } from '../../store/slices/channelSlice'
+import { getSelectedChannelId } from '../../store/slices/selectors'
 
 export const DeleteModal = ({ data }) => {
   const {
     editedChannelId,
     handleCloseModal,
     defaultChannel,
-  } = data;
+  } = data
 
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const selectedChannelId = useSelector(getSelectedChannelId);
-  const [removeChannel] = useRemoveChannelMutation();
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const selectedChannelId = useSelector(getSelectedChannelId)
+  const [removeChannel] = useRemoveChannelMutation()
 
   const handleDeleteChannel = async (id) => {
     try {
-      await removeChannel(id);
-      toast.success(t('modal.channelRemoveSuccess'));
-      handleCloseModal();
+      await removeChannel(id)
+      toast.success(t('modal.channelRemoveSuccess'))
+      handleCloseModal()
       if (selectedChannelId === id) {
-        dispatch(setSelectedChannel(defaultChannel));
+        dispatch(setSelectedChannel(defaultChannel))
       }
-    } catch (error) {
-      console.log('err', error);
-      toast.error(t('error.networkError'));
     }
-  };
+    catch (error) {
+      console.log('err', error)
+      toast.error(t('error.networkError'))
+    }
+  }
 
   return (
     <Modal show onHide={handleCloseModal} centered>
@@ -60,7 +61,7 @@ export const DeleteModal = ({ data }) => {
         </div>
       </Modal.Body>
     </Modal>
-  );
-};
+  )
+}
 
-export default DeleteModal;
+export default DeleteModal

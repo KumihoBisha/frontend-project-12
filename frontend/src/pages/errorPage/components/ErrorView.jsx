@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import PageNotFound from '../../../store/PageNotFound.jsx';
-import { routes } from '../../../utils';
+import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import PageNotFound from '../../../store/PageNotFound.jsx'
+import { routes } from '../../../utils'
 
 const ErrorView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div className="text-center">
@@ -17,7 +17,7 @@ const ErrorView = () => {
         </Link>
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default ErrorView;
+export default ErrorView

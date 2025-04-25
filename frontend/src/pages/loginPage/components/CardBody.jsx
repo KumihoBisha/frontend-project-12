@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next';
-import LoginImage from '../../../assets/login.jpg';
-import AuthForm from './AuthForm';
+import { useTranslation } from 'react-i18next'
+import LoginImage from '../../../assets/login.jpg'
+import AuthForm from './AuthForm'
 
 const CardBody = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div className="card-body row p-5">
@@ -12,7 +12,7 @@ const CardBody = () => {
       </div>
       <AuthForm />
     </div>
-  );
-};
+  )
+}
 
-export default CardBody;
+export default CardBody

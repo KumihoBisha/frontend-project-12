@@ -1,2 +1,2 @@
-export * from './routes.js';
-export * from './validationSchema.js';
+export * from './routes.js'
+export * from './validationSchema.js'

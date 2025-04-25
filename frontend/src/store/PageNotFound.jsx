@@ -1,4 +1,4 @@
-import NotFoundIcon from '../assets/NotFound.svg';
+import NotFoundIcon from '../assets/NotFound.svg'
 
 const PageNotFound = ({ classNames }) => (
   <img
@@ -6,10 +6,10 @@ const PageNotFound = ({ classNames }) => (
     alt="Send"
     className={classNames}
   />
-);
+)
 
 PageNotFound.defaultProps = {
   classNames: {},
-};
+}
 
-export default PageNotFound;
+export default PageNotFound

@@ -70,6 +70,6 @@ const ru = {
     authError: 'Неверные имя пользователя или пароль',
     signupError: 'Такой пользователь уже существует',
   },
-};
+}
 
-export default ru;
+export default ru

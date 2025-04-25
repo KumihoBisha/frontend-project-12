@@ -4,27 +4,27 @@ const Tooltip = (props) => {
     validError,
     authError,
     last,
-  } = props;
+  } = props
 
   if (touched && validError) {
     return (
       <div className="invalid-tooltip">{validError}</div>
-    );
+    )
   }
 
   if (authError && last) {
     return (
       <div className="invalid-tooltip">{authError}</div>
-    );
+    )
   }
 
   if (authError && !last) {
     return (
       <div className="invalid-tooltip" />
-    );
+    )
   }
 
-  return (null);
-};
+  return (null)
+}
 
-export default Tooltip;
+export default Tooltip

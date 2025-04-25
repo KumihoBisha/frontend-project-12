@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   selectedChannel: {
@@ -6,7 +6,7 @@ const initialState = {
     name: 'general',
     removable: false,
   },
-};
+}
 
 const channelSlice = createSlice({
   name: 'channel',
@@ -17,8 +17,8 @@ const channelSlice = createSlice({
       selectedChannel: action.payload,
     }),
   },
-});
+})
 
-export const { setSelectedChannel } = channelSlice.actions;
+export const { setSelectedChannel } = channelSlice.actions
 
-export default channelSlice.reducer;
+export default channelSlice.reducer

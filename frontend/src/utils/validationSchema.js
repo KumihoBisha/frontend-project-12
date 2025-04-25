@@ -1,4 +1,4 @@
-import * as Yup from 'yup';
+import * as Yup from 'yup'
 
 export const getNewChannelSchema = (t, channelsNames) => (
   Yup.object().shape({
@@ -8,9 +8,9 @@ export const getNewChannelSchema = (t, channelsNames) => (
       .required(t('validationSchema.required'))
       .notOneOf(channelsNames, t('validationSchema.channelExist')),
   })
-);
+)
 
-export const getNewUserSchema = (t) => (
+export const getNewUserSchema = t => (
   Yup.object().shape({
     username: Yup.string()
       .min(3, t('validationSchema.usernameLength'))
@@ -25,4 +25,4 @@ export const getNewUserSchema = (t) => (
       .required(t('validationSchema.required'))
       .oneOf([Yup.ref('password')], t('validationSchema.passwordsMatch')),
   })
-);
+)
