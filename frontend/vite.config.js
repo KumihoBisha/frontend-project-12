@@ -1,20 +1,20 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import svgr from "vite-plugin-svgr";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import svgr from 'vite-plugin-svgr'
 
 export default defineConfig({
   plugins: [react(), svgr()],
   server: {
-     port: 5002,
-     proxy: {
-       '/api': {
-         target: 'http://localhost:5001',
-       },
-       '/socket.io': {
-         target: 'ws://localhost:5001',
-         ws: true,
-         rewriteWsOrigin: true,
-       },
-     },
-   },
- });
+    port: 5002,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5001',
+      },
+      '/socket.io': {
+        target: 'ws://localhost:5001',
+        ws: true,
+        rewriteWsOrigin: true,
+      },
+    },
+  },
+})

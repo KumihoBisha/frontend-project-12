@@ -35,7 +35,7 @@ const AuthForm = () => {
       dispatch(setUsername(username))
       redirect(routes.chat)
     }
-    catch (err) {
+    catch {
       setError(t('errors.authError'))
       setSubmitting(false)
       toast(t('errors.networkError'))
