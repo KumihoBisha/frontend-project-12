@@ -30,8 +30,7 @@ const AddModal = ({ data }) => {
       const filteredName = filter.clean(values.newChannelName)
       const newChannel = { name: filteredName }
       const response = await addChannel(newChannel).unwrap()
-
-      dispatch(setSelectedChannel(response.data))
+      dispatch(setSelectedChannel(response))d
       toast.success(t('modal.channelAddSuccess'))
       handleCloseModal()
       resetForm()
@@ -59,9 +58,9 @@ const AddModal = ({ data }) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <Form.Label htmlFor="channelName">{t('modal.channelName')}</Form.Label>
+            <Form.Label htmlFor="newChannelName">{t('modal.channelName')}</Form.Label>
             <Form.Control
-              id="channelName"
+              id="newChannelName"
               name="newChannelName"
               type="text"
               className="mb-2"
@@ -72,8 +71,8 @@ const AddModal = ({ data }) => {
               autoFocus
               aria-label={t('modal.channelName')}
             />
-            <Form.Label className="visually-hidden">{t('modal.channelName')}</Form.Label>
-            <Form.Control.Feedback className="invalid">
+            <Form.Label htmlFor="channelName" className="visually-hidden">{t('modal.channelName')}</Form.Label>
+            <Form.Control.Feedback id="channelName" className="invalid">
               {formik.errors.newChannelName}
             </Form.Control.Feedback>
           </Form.Group>
