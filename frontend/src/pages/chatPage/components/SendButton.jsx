@@ -1,4 +1,4 @@
-import sendIcon from '../assets/icons/send.svg'
+import sendIcon from '../../../assets/icons/send.svg'
 
 const SendButton = () => (
   <img

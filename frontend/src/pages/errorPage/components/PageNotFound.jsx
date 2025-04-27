@@ -1,4 +1,4 @@
-import NotFoundIcon from '../assets/NotFound.svg'
+import NotFoundIcon from '../../../assets/NotFound.svg'
 
 const PageNotFound = ({ classNames }) => (
   <img

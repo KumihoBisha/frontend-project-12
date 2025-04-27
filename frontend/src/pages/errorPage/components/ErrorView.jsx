@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import PageNotFound from '../../../store/PageNotFound.jsx'
+import PageNotFound from './PageNotFound.jsx'
 import { routes } from '../../../utils'
 
 const ErrorView = () => {
