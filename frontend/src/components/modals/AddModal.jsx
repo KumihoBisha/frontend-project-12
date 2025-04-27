@@ -30,14 +30,14 @@ const AddModal = ({ data }) => {
       const filteredName = filter.clean(values.newChannelName)
       const newChannel = { name: filteredName }
       const response = await addChannel(newChannel).unwrap()
-      dispatch(setSelectedChannel(response))d
+      dispatch(setSelectedChannel(response))
       toast.success(t('modal.channelAddSuccess'))
       handleCloseModal()
       resetForm()
     }
     catch (error) {
       console.log(t('errors.networkError'), error)
-      toast.error(t('error.networkError'))
+      toast.error(t('errors.networkError'))
     }
   }
 
