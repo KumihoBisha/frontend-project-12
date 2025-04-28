@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import i18next from 'i18next'
 import filter from 'leo-profanity'
@@ -19,6 +19,7 @@ import { SocketContext, socketService } from './utils/socketService.js'
 import apiClient from './store/apiClient.js'
 
 const App = () => {
+  const [i18nInitialized, setI18nInitialized] = useState(false)
   useEffect(() => {
     const addChannel = (newChannel) => {
       store.dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => {
@@ -51,19 +52,26 @@ const App = () => {
     }
   }, [])
 
-  i18next
-    .use(initReactI18next)
-    .init({
-      resources: {
-        ru: {
-          translation: ru,
-        },
-      },
-      fallbackLng: 'ru',
-      interpolation: {
-        escapeValue: false,
-      },
-    })
+  useEffect(() => {
+    const initializeI18n = async () => {
+      await i18next
+        .use(initReactI18next)
+        .init({
+          resources: {
+            ru: {
+              translation: ru,
+            },
+          },
+          fallbackLng: 'ru',
+          interpolation: {
+            escapeValue: false,
+          },
+        })
+      setI18nInitialized(true)
+    }
+
+    initializeI18n()
+  }, [])
 
   const rollbarConfig = {
     accessToken: import.meta.env.POST_CLIENT_ACCESS_TOKEN,
@@ -73,6 +81,10 @@ const App = () => {
   }
 
   filter.add(filter.getDictionary('ru'))
+
+  if (!i18nInitialized) {
+    return null
+  }
 
   return (
     <SocketContext.Provider value={socketService}>
