@@ -39,6 +39,21 @@ class SocketService {
   }
 }
 
-const socketService = new SocketService()
-const SocketContext = createContext(null)
-export { socketService, SocketContext }
+let socketService = null
+let SocketContext = null
+
+export const initializeSocket = () => {
+  if (!socketService) {
+    socketService = new SocketService()
+    SocketContext = createContext(null)
+  }
+  return { socketService, SocketContext }
+}
+
+export const getSocketService = () => {
+  return socketService
+}
+
+export const getSocketContext = () => {
+  return SocketContext
+}

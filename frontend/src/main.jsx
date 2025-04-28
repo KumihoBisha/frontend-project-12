@@ -1,8 +1,10 @@
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import { SocketContext, socketService } from './utils/socketService.js'
+import { initializeSocket } from './utils/socketService.js'
 import store from './store/store.js'
 import apiClient from './store/apiClient.js'
+
+const { socketService, SocketContext } = initializeSocket()
 
 const initializeApp = () => {
   socketService.connect()

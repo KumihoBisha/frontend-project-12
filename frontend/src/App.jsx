@@ -15,11 +15,14 @@ import ErrorPage from './pages/errorPage/ErrorPage.jsx'
 import { routes } from './utils'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import store from './store/store.js'
-import { SocketContext, socketService } from './utils/socketService.js'
+import { getSocketService, getSocketContext } from './utils/socketService.js'
 import apiClient from './store/apiClient.js'
 
 const App = () => {
   const [i18nInitialized, setI18nInitialized] = useState(false)
+  const socketService = getSocketService()
+  const SocketContext = getSocketContext()
+
   useEffect(() => {
     const addChannel = (newChannel) => {
       store.dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => {
@@ -50,7 +53,7 @@ const App = () => {
       socketService.off('removeChannel', deleteChannel)
       socketService.off('renameChannel', renameChannel)
     }
-  }, [])
+  }, [socketService])
 
   useEffect(() => {
     const initializeI18n = async () => {
